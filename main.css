@@ -22,3 +22,27 @@ header{
     margin: 10px;
     font-family: Cambria;
 }
+a{
+    color: green;
+    text-decoration: none;
+}
+a:link{
+color: blueviolet;
+background-color: gold;
+}
+a:visited{
+color: peru;
+text-shadow: 5px 5px 5px blue;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+    text-shadow: 5px 5px 5px brown;
+    background-color: aqua;
+
+}
+a:active {
+    color: black;
+    opacity: 0.3;
+}
