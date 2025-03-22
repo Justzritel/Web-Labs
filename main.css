@@ -25,6 +25,7 @@ header{
 a{
     color: green;
     text-decoration: none;
+    transition: 1s 2s;
 }
 a:link{
 color: blueviolet;
@@ -40,6 +41,7 @@ a:hover {
     text-decoration: underline;
     text-shadow: 5px 5px 5px brown;
     background-color: aqua;
+    transition: 0.3s;
 
 }
 a:active {
