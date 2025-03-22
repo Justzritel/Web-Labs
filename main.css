@@ -48,3 +48,13 @@ a:active {
     color: black;
     opacity: 0.3;
 }
+div.menu{
+    border: 10px solid #7cba0880;
+    border-radius: 5px;
+    width: 250px;
+    margin: 0 auto;
+}
+div.menu:hover{
+background-color: rgba(22, 50, 152, 0.567);
+box-shadow: 5px 5px 15px rgba(237, 17, 17, 0.566);
+}
