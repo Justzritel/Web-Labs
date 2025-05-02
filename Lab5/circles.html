@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крадинов Анатолий Иванович. Круги</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+        const colors = [
+            'red', 'green', 'blue', 'yellow', 
+            'purple', 'lightblue', 'pink', 'brown', 
+            'darkgreen', 'wheat'
+        ];
+        
+        const positions = [
+            {left: '10%', top: '20%'},
+            {left: '30%', top: '10%'},
+            {left: '50%', top: '15%'},
+            {left: '70%', top: '20%'},
+            {left: '85%', top: '30%'},
+            {left: '15%', top: '50%'},
+            {left: '35%', top: '60%'},
+            {left: '60%', top: '55%'},
+            {left: '80%', top: '65%'},
+            {left: '45%', top: '80%'}
+        ];
+        
+        function createCircles() {
+            const main = document.querySelector('main');
+            document.querySelectorAll('.circle').forEach(c => c.remove());
+            
+            for (let i = 0; i < 10; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'circle';
+                circle.textContent = i + 1;
+                circle.style.backgroundColor = colors[i];
+                circle.style.left = positions[i].left;
+                circle.style.top = positions[i].top;
+                circle.style.boxShadow = `0 0 15px ${colors[i]}`;
+                
+                circle.onclick = function () {
+                    this.style.transform = 'scale(0)';
+                    this.style.opacity = '0';
+                    setTimeout(() => {
+                        this.classList.add('hidden');
+                    }, 500);
+                };
+                
+                main.appendChild(circle);
+            }
+        }
+        
+        function restoreCircles() {
+            document.querySelectorAll('.circle').forEach(c => {
+                c.classList.remove('hidden');
+                c.style.transform = 'scale(1)';
+                c.style.opacity = '1';
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', createCircles);
+    </script>
+    <style>
+        .circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: scale(1);
+            opacity: 1;
+            border: 2px solid white;
+        }
+        
+        .circle:hover {
+            transform: scale(1.2) rotate(20deg);
+            z-index: 3;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        #restorebutton {
+            margin: 20px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+            position: relative;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        #restorebutton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        #restorebutton:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        main {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            background: #f5f7fa;
+        }
+        
+        header, footer {
+            background: linear-gradient(135deg, #3a4a6b, #1e2b4d);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Круги
+    </header>
+
+    <main>
+        <button id="restorebutton" onclick="restoreCircles()">Показать все круги</button>
+    </main>
+    
+    <footer>
+        &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
