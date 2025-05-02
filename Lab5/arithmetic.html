@@ -16,6 +16,14 @@
             let result=a+b
             alert("Сумма "+a + "и "+b+ "равна "+result)
         }
+        function author(){
+            let author = "Автор сраницы: \nКрадинов Анатолий Иванович";
+            alert(author)
+        }
+        function text (){
+            let text = "Если вы каким-либо образом здесь оказались, вы - желанный гость"
+            alert(text)
+        }
     </script>
     <style>
         .massage{
@@ -31,16 +39,16 @@
     </style>
 </head>
 <body>
-    <header>
+    <header onclick="author()">
         НГТУ, ФБ, Арифметика
     </header>
 
     <main>
         <div class="massage" onclick="sum()">Сколько будет 5154+7891</div>
-        <div class="massage">Узнать, кто автор страницы</div>
+        <div class="massage" onclick="author()">Узнать, кто автор страницы</div>
     </main>
     
-    <footer>
+    <footer style= cursor:pointer; ondblclick="text()">
         &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
     </footer>
 </body>
