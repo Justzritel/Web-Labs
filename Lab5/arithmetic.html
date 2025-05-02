@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крадинов Анатолий Иванович. Арифметика</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+        function sum(){
+            let inputA = document.getElementById("numberA");
+            let inputB = document.getElementById("numberB");
+            
+            let a=parseInt(inputA.value);
+            let b=parseInt(inputB.value);
+            let result=a+b
+            alert("Сумма "+a + " и "+b+ " равна "+result)
+        }
+
+        function diff(){
+            let inputA = document.getElementById("numberA");
+            let inputB = document.getElementById("numberB");
+            
+            let a=parseInt(inputA.value);
+            let b=parseInt(inputB.value);
+            let result=a-b
+            alert("Разность "+a + " и "+b+ " равна "+result)
+        }
+
+        function mult(){
+            let inputA = document.getElementById("numberA");
+            let inputB = document.getElementById("numberB");
+            
+            let a=parseInt(inputA.value);
+            let b=parseInt(inputB.value);
+            let result=a*b
+            alert("Произведение "+a + " и "+b+ " равно "+result)
+        }
+
+        function div(){
+            let inputA = document.getElementById("numberA");
+            let inputB = document.getElementById("numberB");
+            let a=parseInt(inputA.value);
+            let b=parseInt(inputB.value);
+            if (b==0) {
+                alert('Ошибка: \nНа ноль делить нельзя');
+                inputB.focus();
+                inputB.select();
+                inputB.style.color ="red";
+                inputB.style.borderColor = "red";
+                return;
+            }
+            if (isNaN(a)){
+                alert("Введити числовое значение в первое поле")
+                inputA.focus();
+                inputA.select();
+                inputA.style.color ="red";
+                inputA.style.borderColor = "red";
+                return
+            }
+
+            if (isNaN(b)){
+                alert("Введити числовое значение во второе поле")
+                inputB.focus();
+                inputB.select();
+                inputB.style.color ="red";
+                inputB.style.borderColor = "red";
+                return
+            }
+            inputA.style.color="";
+            inputA.style.borderColor="";
+            inputB.style.color="";
+            inputB.style.borderColor="";
+
+            let result=a/b
+            alert("Отношение "+a + " и "+b+ " равно "+result)
+        }
+
+        function exp(){
+            let inputA = document.getElementById("numberA");
+            let inputB = document.getElementById("numberB");
+
+            let a=parseInt(inputA.value);
+            let b=parseInt(inputB.value);
+
+            if (a==0 && b==0){
+                alert('Значения не должны быть нулевыми')
+                inputA.style.color ="red";
+                inputA.style.borderColor = "red";
+                inputB.style.color ="red";
+                inputB.style.borderColor = "red";
+                return
+            }
+
+            if (isNaN(a)){
+                alert("Введити числовое значение в первое поле")
+                inputA.focus();
+                inputA.select();
+                inputA.style.color ="red";
+                inputA.style.borderColor = "red";
+                return
+            }
+
+            if (isNaN(b)){
+                alert("Введити числовое значение во второе поле")
+                inputB.focus();
+                inputB.select();
+                inputB.style.color ="red";
+                inputB.style.borderColor = "red";
+                return
+            }
+            inputA.style.color="";
+            inputA.style.borderColor="";
+            inputB.style.color="";
+            inputB.style.borderColor="";
+
+            let result =a**b;
+            alert (a+" в степени "+b+" равно "+result)
+        }
+        function author(){
+            let author = "Автор сраницы: \nКрадинов Анатолий Иванович";
+            alert(author)
+        }
+
+        function text (){
+            let text = "Если вы каким-либо образом здесь оказались, вы - желанный гость"
+            alert(text)
+        }
+
+    </script>
+    <style>
+        .massage{
+            border: 1px solid red;
+            border-radius: 5px;
+            display: inline-block;
+            vertical-align: top;
+            background-color: bisque;
+            text-align: center;
+            padding: 12px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header onclick="author()">
+        НГТУ, ФБ, Арифметика
+    </header>
+
+    <main>
+        <label>Первое число: <input type="number" value="5154" id="numberA"></label><br>
+
+        <label>Второе число: <input type="number"value="7891" id="numberB"></label><br>
+
+        <div class="massage" onclick="sum()">Найти сумму чисел</div>
+
+        <div class="massage" onclick="diff()">Найти разность чисел</div>
+
+        <div class="massage" onclick="mult()">Найти произведение чисел</div>
+
+        <div class="massage" onclick="div()">Найти отношение чисел</div>
+
+        <div class="massage" onclick="exp()">Возведение в степень</div>
+
+        <div class="massage" onclick="author()">Узнать, кто автор страницы</div>
+
+    </main>
+    
+    <footer style= cursor:pointer; ondblclick="text()">
+        &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

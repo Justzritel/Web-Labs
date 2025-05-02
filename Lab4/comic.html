@@ -10,6 +10,14 @@
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
     <style>
+        .animation {
+                position: relative;
+            }
+        .first, .second, .third, .text {
+            opacity: 0;
+                transition: opacity 1s ease;
+                pointer-events: none;
+        }
         .first {
             border-radius: 50%;
             background-color: white;
@@ -20,6 +28,7 @@
             top: 300px;
             width: 100px;
             height: 75px;
+            transition-delay: 1s;
         }
         .second {
             border-radius: 50%;
@@ -31,6 +40,7 @@
             top: 250px;
             width: 120px;
             height: 80px;
+            transition-delay: 2s;
         }
         .third {
             border-radius: 50%;
@@ -42,6 +52,7 @@
             top: 180px;
             width: 140px;
             height: 90px;
+            transition-delay: 3s;
         }
         .text {
             border-radius: 50%;
@@ -56,7 +67,12 @@
             text-align: center;
             box-sizing: border-box;
             padding-top: 30px;
+            transition-delay: 4s;
         }
+            .animation:hover .first, .animation:hover .second, .animation:hover .third, .animation:hover .text {
+                opacity: 1;
+                pointer-events: auto;
+            }
     </style>
 </head>
 <body>
@@ -65,11 +81,21 @@
     </header>
 
     <main>
+<<<<<<< HEAD
         <img src="cat.jpg" width="40%" style="position: relative; left: 550px; top: 50px;">
         <div class="first"></div>
         <div class="second"></div>
         <div class="third"></div>
         <div class="text">Я обязательно выживу</div>
+=======
+        <div class="animation">
+            <img class="Cat" src="cat.jpg" width="40%" style="position: relative; left: 550px; top: 50px;">
+            <div class="first"></div>
+            <div class="second"></div>
+            <div class="third"></div>
+            <div class="text">Я обязательно выживу</div>
+        </div>
+>>>>>>> 2df81acd5d27f3c62cb8e9767465c29914b6ff72
     </main>
 
     <footer>
