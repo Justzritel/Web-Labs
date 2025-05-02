@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крадинов Анатолий Иванович. Корзина</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+        function calculateTotal() {
+            const prices = [3000, 250, 800, 6000, 1200];
+
+            let total = 0;
+            for (let i = 1; i <= 5; i++) {
+                let input = document.getElementById("item" + i);
+                let quantity = parseFloat(input.value) || 0;
+                total += quantity * prices[i - 1];
+            }
+
+            document.getElementById("total").innerText = "Сумма к оплате: " + total.toFixed(2) + " руб.";
+        }
+        function clearbasket() {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById("item" + i).value = '';
+            }
+            document.getElementById("total").innerText = '';
+        }
+    </script>
+    <style>
+        .item {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 250px;
+        }
+        input[type="number"] {
+            width: 60px;
+        }
+        #total {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .button {
+            margin-top: 15px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type='number'] {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<header >НГТУ, ФБ, Корзина</header>
+<main>
+    <div style="border: 2px solid; border-radius: 13px; padding: 25px; max-width: 450px;">
+        <h2>Корзина товаров</h2>
+        <div class="item">
+            <label>Бутылка вина (3000 руб/бутылка):</label>
+            <input type="number" id="item1" min="0" placeholder="Кол-во вина в бутылках">
+        </div>
+        <div class="item">
+            <label>бананы (250 руб/кг):</label>
+            <input type="number" id="item2" min="0" placeholder="Кол-во бананов в кг">
+        </div>
+        <div class="item">
+            <label>Набор конфет (800 руб/шт):</label>
+            <input type="number" id="item3" min="0" placeholder="Кол-во наборов конфет в штуках">
+        </div>
+        <div class="item">
+            <label>Коньяк (6000 руб/бутылка):</label>
+            <input type="number" id="item4" min="0" placeholder="Кол-во коньяка в бутылках">
+        </div>
+        <div class="item">
+            <label>Сыр с плесенью (1200 руб/шт):</label>
+            <input type="number" id="item5" min="0" placeholder="Кол-во сыра в шт">
+        </div>
+        <button class="button" onclick="calculateTotal()">Рассчитать</button>
+        <button class="button" onclick="clearbasket()">Очистить</button>
+        <div id="total">Сумма к оплате: 0 руб.</div>
+    </div>
+    </main>
+    
+    <footer>
+        &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
