@@ -130,6 +130,12 @@
             alert(text)
         }
 
+        function changeOutput(buttonNum,backColor,textColor){
+            let output = document.getElementById("output");
+            output.innerHTML= "Нажата кнопка "+buttonNum;
+            output.style.backgroundColor=backColor
+            output.style.color=textColor
+        }
     </script>
     <style>
         .massage{
@@ -142,6 +148,11 @@
             padding: 12px;
             margin: 10px;
             cursor: pointer;
+        }
+        #output {
+            border: 1px solid;
+            width: 300px;
+            height: 400px;
         }
     </style>
 </head>
@@ -167,6 +178,14 @@
 
         <div class="massage" onclick="author()">Узнать, кто автор страницы</div>
 
+        <div>
+            <input type="button" value="Кнопка 1" onclick = "changeOutput(1, 'red', 'yellow','16px','2px','orange' )">
+            <input type="button" value="Кнопка 2" onclick = "changeOutput(2, 'black', 'lime','8px','3px','white' )">
+            <input type="button" value="Кнопка 3" onclick = "changeOutput(3, 'green', 'purple','13px','5px','blue' )">
+            <input type="button" value="Кнопка 4" onclick = "changeOutput(4, 'pink', 'gray','2px','8px','red' )">
+        </div>
+
+        <div id="output"></div>
     </main>
     
     <footer style= cursor:pointer; ondblclick="text()">
