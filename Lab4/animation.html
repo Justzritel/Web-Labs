@@ -12,43 +12,48 @@
                 cursor: pointer;
                 transition: transform 0.3s, text-shadow 0.3s;
                 z-index: 0;
+                animation-duration: 10s;
+                animation-iteration-count: infinite;
+                animation-timing-function: ease-in-out;
+                animation-direction: alternate;
             }
             .tag:hover {
                 transform: scale(2);
                 text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
                 z-index: 2;
+                animation-play-state: paused;
             }
-            .t1  { top: 33%; left: 20%; font-size: 20px; color: #000; transform: rotate(-10deg); }        
-            .t2  { top: 20%; left: 15%; font-size: 22px; color: #33c4ff; transform: rotate(15deg); }        
-            .t3  { top: 30%; left: 25%; font-size: 25px; color: #99ff33; transform: rotate(-5deg); }       
-            .t4  { top: 40%; left: 65%; font-size: 30px; color: #ffcc00; transform: rotate(4deg); }        
-            .t5  {top: 40%; left: 35%; font-size: 24px; color: #ff33b5; transform: rotate(-15deg); }       
-            .t6  { top: 50%; left: 45%; font-size: 30px; color: #ffcc33; transform: rotate(10deg); }        
-            .t7  { top: 60%; left: 55%; font-size: 20px; color: #55ff33; transform: rotate(0deg); }          
-            .t8  { top: 70%; left: 65%; font-size: 26px; color: #3333ff; transform: rotate(20deg); }       
-            .t9  { top: 80%; left: 75%; font-size: 19px; color: #ff33a6; transform: rotate(-25deg); }       
-            .t10 { top: 90%; left: 85%; font-size: 23px; color: #ff3333; transform: rotate(30deg); }        
-            .t11 { top: 25%; left: 10%; font-size: 21px; color: #c133ff; transform: rotate(-30deg); }       
-            .t12 { top: 15%; left: 60%; font-size: 27px; color: #ff8833; transform: rotate(8deg); }        
-            .t13 { top: 55%; left: 80%; font-size: 33px; color: #33ff88; transform: rotate(-10deg); }       
-            .t14 { top: 35%; left: 50%; font-size: 24px; color: #ff9933; transform: rotate(-5deg); }        
-            .t15 { top: 5%; left: 40%; font-size: 20px; color: #7333ff; transform: rotate(15deg); }  
-            @keyframes move1  { 0% { top:10%; left:15%; } 100% { top:25%; left:30%; } }
-            @keyframes move2  { 0% { top:20%; left:40%; } 100% { top:35%; left:60%; } }
-            @keyframes move3  { 0% { top:30%; left:50%; } 100% { top:45%; left:70%; } }
-            @keyframes move4  { 0% { top:40%; left:65%; } 100% { top:55%; left:50%; } }
-            @keyframes move5  { 0% { top:50%; left:30%; } 100% { top:65%; left:40%; } }
-            @keyframes move6  { 0% { top:60%; left:45%; } 100% { top:75%; left:55%; } }
-            @keyframes move7  { 0% { top:70%; left:60%; } 100% { top:55%; left:80%; } }
-            @keyframes move8  { 0% { top:28%; left:55%; } 100% { top:42%; left:75%; } }
-            @keyframes move9  { 0% { top:33%; left:25%; } 100% { top:50%; left:15%; } }
-            @keyframes move10 { 0% { top:38%; left:40%; } 100% { top:53%; left:45%; } }
-            @keyframes move11 { 0% { top:43%; left:55%; } 100% { top:60%; left:70%; } }
-            @keyframes move12 { 0% { top:48%; left:70%; } 100% { top:62%; left:85%; } }
-            @keyframes move13 { 0% { top:53%; left:35%; } 100% { top:66%; left:20%; } }
-            @keyframes move14 { 0% { top:58%; left:50%; } 100% { top:75%; left:65%; } }
-            @keyframes move15 { 0% { top:63%; left:65%; } 100% { top:78%; left:50%; } }              
-        </style>            
+            .t1  { font-size: 20px; color: #000; transform: rotate(-10deg); animation-name: move1; }        
+            .t2  { font-size: 22px; color: #33c4ff; transform: rotate(15deg); animation-name: move2; }        
+            .t3  { font-size: 25px; color: #99ff33; transform: rotate(-5deg); animation-name: move3; }       
+            .t4  { font-size: 30px; color: #ffcc00; transform: rotate(4deg); animation-name: move4; }        
+            .t5  { font-size: 24px; color: #ff33b5; transform: rotate(-15deg); animation-name: move5; }       
+            .t6  { font-size: 30px; color: #ffcc33; transform: rotate(10deg); animation-name: move6; }        
+            .t7  { font-size: 20px; color: #55ff33; transform: rotate(0deg); animation-name: move7; }          
+            .t8  { font-size: 26px; color: #3333ff; transform: rotate(20deg); animation-name: move8; }       
+            .t9  { font-size: 19px; color: #ff33a6; transform: rotate(-25deg); animation-name: move9; }       
+            .t10 { font-size: 23px; color: #ff3333; transform: rotate(30deg); animation-name: move10; }        
+            .t11 { font-size: 21px; color: #c133ff; transform: rotate(-30deg); animation-name: move11; }       
+            .t12 { font-size: 27px; color: #ff8833; transform: rotate(8deg); animation-name: move12; }        
+            .t13 { font-size: 33px; color: #33ff88; transform: rotate(-10deg); animation-name: move13; }       
+            .t14 { font-size: 24px; color: #ff9933; transform: rotate(-5deg); animation-name: move14; }        
+            .t15 { font-size: 20px; color: #7333ff; transform: rotate(15deg); animation-name: move15; }  
+            @keyframes move1 { 0% { top: 33%; left: 20%; } 100% { top: 15%; left: 25%; } }
+            @keyframes move2 { 0% { top: 20%; left: 15%; } 100% { top: 20%; left: 80%; } }
+            @keyframes move3 { 0% { top: 30%; left: 25%;; } 100% { top: 25%; left: 45%; } }
+            @keyframes move4 { 0% { top: 40%; left: 65%; } 100% { top: 30%; left: 50%; } }
+            @keyframes move5 { 0% { top: 40%; left: 35%; } 100% { top: 35%; left: 15%; } }
+            @keyframes move6 { 0% { top: 50%; left: 45%; } 100% { top: 45%; left: 65%; } }
+            @keyframes move7 { 0% { top: 60%; left: 55%; } 100% { top: 50%; left: 55%; } }
+            @keyframes move8 { 0% { top: 70%; left: 65%; } 100% { top: 55%; left: 70%; } }
+            @keyframes move9 { 0% { top: 80%; left: 75%; } 100% { top: 65%; left: 80%; } }
+            @keyframes move10 { 0% { top: 90%; left: 85%; } 100% { top: 75%; left: 10%; } }
+            @keyframes move11 { 0% { top: 25%; left: 10%; } 100% { top: 70%; left: 45%; } }
+            @keyframes move12 { 0% { top: 15%; left: 60%; } 100% { top: 85%; left: 55%; } }
+            @keyframes move13 { 0% { top: 55%; left: 80%; } 100% { top: 90%; left: 30%; } }
+            @keyframes move14 { 0% { top: 35%; left: 50%; } 100% { top: 95%; left: 70%; } }
+            @keyframes move15 { 0% { top: 5%; left: 40%;; } 100% { top: 90%; left: 5%; } } 
+                 
         </style>
     </head>
 
