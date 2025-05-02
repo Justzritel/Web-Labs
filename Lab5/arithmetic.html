@@ -37,7 +37,20 @@
             let a=parseInt(inputA.value);
             let b=parseInt(inputB.value);
             let result=a*b
-            alert("Произведение "+a + " и "+b+ " равна "+result)
+            alert("Произведение "+a + " и "+b+ " равно "+result)
+        }
+
+        function div(){
+            let inputA = document.getElementById("numberA");
+            let inputB = document.getElementById("numberB");
+            let a=parseInt(inputA.value);
+            let b=parseInt(inputB.value);
+            if (b==0) {
+                alert('Ошибка: \nНа ноль делить нельзя');
+                return;
+            }
+            let result=a/b
+            alert("Отношение "+a + " и "+b+ " равно "+result)
         }
 
         function author(){
@@ -79,6 +92,8 @@
         <div class="massage" onclick="diff()">Найти разность чисел</div>
 
         <div class="massage" onclick="mult()">Найти произведение чисел</div>
+
+        <div class="massage" onclick="div()">Найти отношение чисел</div>
 
         <div class="massage" onclick="author()">Узнать, кто автор страницы</div>
 
