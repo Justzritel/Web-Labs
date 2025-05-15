@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крадинов Анатолий Иванович. Дополнительное задание</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+        function changeFilter(event) {
+            let img = document.getElementById("image");
+            let info = document.getElementById("filterInfo");
+
+            let x = event.offsetX;
+            let width = img.clientWidth;
+            let strength = x / width;
+
+            let filter = 'blur(' + (strength * 10).toFixed(1) + 'px)';
+            let text = 'blur(' + (strength * 10).toFixed(1) + 'px)';
+
+            if (event.ctrlKey) {
+                let hue = Math.round(strength * 360);
+                filter += ' hue-rotate(' + hue + 'deg)';
+                text += ' + hue-rotate(' + hue + 'deg)';
+            }
+
+            if (event.altKey) {
+                filter += ' saturate(' + (strength*3).toFixed(2) + ')';
+                text += ' + saturate(' + (strength*3).toFixed(2) + ')';
+            }
+
+
+            if (event.shiftKey) {
+                filter += ' invert(' + strength.toFixed(2) + ')';
+                text += ' + invert(' + strength.toFixed(2) + ')';
+            }
+
+            img.style.filter = filter;
+            info.innerText = 'Фильтр: ' + text;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Дополнительное задание
+    </header>
+
+    <main>
+        <p>Наведите мышь на изображение. Чем правее положение мыши — тем сильнее эффект фильтра.<br>
+            Удерживайте клавиши Ctrl, Alt или Shift — появятся другие фильтры.</p>
+    
+            <img src="Work.jpg" id="image" onmousemove="changeFilter(event)" width="1000">
+            <div id="filterInfo"></div>
+    </main>
+    
+    <footer>
+        &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
