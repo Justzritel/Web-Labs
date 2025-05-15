@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Крадинов Анатолий Иванович. Диаграмма</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="stylesheet" href="../main.css">
+    <style>
+        #diag {
+            display: flex;
+            align-items: flex-end;
+            height: 500px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            max-width: 800px;
+            gap: 10px;
+        }
+        .bar {
+            width: 50px;
+            background: #4b6cb7;
+            margin: 0 5px;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            transition: height 0.5s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+        .bar-value {
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        function showDiagram() {
+            let data = [50, 90, 60, 30, 100, 55, 45, 15, 12, 35];
+            let colors = ['red','green','wheat','blue','brown','pink','purple','yellow','black','orange']
+            let bars = document.getElementsByClassName('bar');
+            const diagHeight = document.getElementById('diag').clientHeight;
+            const maxData = Math.max(...data);
+            const k = diagHeight/maxData*0.9;
+            for (let i = 0; i < data.length; i++) {
+                bars[i].style.height = k*data[i] + 'px';
+                bars[i].style.background = colors[i];
+                bars[i].innerHTML = `<div class="bar-value">${data[i]}</div>`;
+            }
+        }
+    </script>
+</head>
+<body onload = "showDiagram()">
+    <header>
+        НГТУ, ФБ, Диаграмма
+        <hr>
+    </header>
+
+    <main>
+        <div id="diag">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </main>
+    <footer>
+        <hr>
+        &copy; Крадинов Анатолий, ФБИ-33, 2 курс, 2025
+    </footer>
+
+ 
+
+</body>
+</html>
