@@ -10,6 +10,7 @@
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
     <style>
+        /* Стили для контейнера с датами */
         .dates-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -54,14 +55,16 @@
             padding-left: 10px;
             border-left: 2px solid #adb5bd;
         }
+
         .buttons-container {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin: 30px 0;
+            flex-wrap: wrap;
         }
 
-        .color-btn {
+        .btn {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -70,14 +73,15 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-width: 200px;
         }
 
-        .color-btn:hover {
+        .btn:hover {
             background-color: #138496;
             transform: scale(1.05);
         }
 
-        .color-btn:disabled {
+        .btn:disabled {
             background-color: #6c757d;
             cursor: not-allowed;
             transform: none;
@@ -87,74 +91,142 @@
             transition: color 0.8s ease-in-out;
         }
         
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
     </style>
     <script>
-        function showDates() {
+        let colorInterval = null;
+        let timeUpdateInterval = null;
+        const COLOR_CHANGE_INTERVAL = 1500; 
+        const TIME_UPDATE_INTERVAL = 1000; 
+
+        const locales = [
+            { code: 'ru-RU', name: 'Россия', flag: '🇷🇺' },
+            { code: 'en-US', name: 'США', flag: '🇺🇸' },
+            { code: 'de-DE', name: 'Германия', flag: '🇩🇪' },
+            { code: 'ja-JP', name: 'Япония', flag: '🇯🇵' },
+            { code: 'ar-SA', name: 'Саудовская Аравия', flag: '🇸🇦' },
+            { code: 'fr-FR', name: 'Франция', flag: '🇫🇷' }
+        ];
+
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function changeHeaderColor() {
+            const header = document.querySelector('header');
+            header.style.color = getRandomColor();
+        }
+
+        function startColorChange() {
+            if (!colorInterval) {
+                changeHeaderColor();
+                colorInterval = setInterval(changeHeaderColor, COLOR_CHANGE_INTERVAL);
+                document.getElementById('start-btn').disabled = true;
+                document.getElementById('stop-btn').disabled = false;
+            }
+        }
+
+        function stopColorChange() {
+            if (colorInterval) {
+                clearInterval(colorInterval);
+                colorInterval = null;
+                document.getElementById('start-btn').disabled = false;
+                document.getElementById('stop-btn').disabled = true;
+            }
+        }
+
+        function formatDate(now, locale) {
+            return now.toLocaleString(locale.code, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        function updateTime() {
             const now = new Date();
-            const locales = [
-                { code: 'ru-RU', name: 'Россия', flag: '🇷🇺' },
-                { code: 'en-US', name: 'США', flag: '🇺🇸' },
-                { code: 'de-DE', name: 'Германия', flag: '🇩🇪' },
-                { code: 'ja-JP', name: 'Япония', flag: '🇯🇵' },
-                { code: 'ar-SA', name: 'Саудовская Аравия', flag: '🇸🇦' },
-                { code: 'fr-FR', name: 'Франция', flag: '🇫🇷' }
-            ];
+            const datesContainer = document.getElementById('current-dates');
             
-            let html = '<div class="dates-container">';
-            
-            locales.forEach(locale => {
-                const dateStr = now.toLocaleString(locale.code, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    weekday: 'long',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
+            if (!datesContainer.hasChildNodes()) {
+                let html = '<div class="dates-container">';
+                
+                locales.forEach(locale => {
+                    const dateStr = formatDate(now, locale);
+                    
+                    html += `
+                        <div class="date-card">
+                            <div class="locale-name">
+                                ${locale.flag} ${locale.name}
+                                <span class="locale-code">${locale.code}</span>
+                            </div>
+                            <div class="date-time">${dateStr}</div>
+                        </div>
+                    `;
                 });
                 
-                html += `
-                    <div class="date-card">
-                        <div class="locale-name">
-                            ${locale.flag} ${locale.name}
-                            <span class="locale-code">${locale.code}</span>
-                        </div>
-                        <div class="date-time">${dateStr}</div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            document.getElementById('current-dates').innerHTML = html;
+                html += '</div>';
+                datesContainer.innerHTML = html;
+            } else {
+                const dateCards = datesContainer.querySelectorAll('.date-card');
+                
+                dateCards.forEach((card, index) => {
+                    const locale = locales[index];
+                    const dateStr = formatDate(now, locale);
+                    card.querySelector('.date-time').textContent = dateStr;
+                });
+            }
         }
-        function changeColors() {
-            const header = document.getElementsByTagName('header')[0];
-            const rgb = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`
-            header.style.color = rgb;
+
+        function startTimeUpdate() {
+            if (!timeUpdateInterval) {
+                updateTime();
+                timeUpdateInterval = setInterval(updateTime, TIME_UPDATE_INTERVAL);
+                document.getElementById('start-time-btn').disabled = true;
+                document.getElementById('stop-time-btn').disabled = false;
+            }
         }
-        function startChangeColors(){
-            changeColors();
-            timerNum = setInterval(changeColors,1000);
-            document.getElementById('start-btn').disabled = true;
-            document.getElementById('stop-btn').disabled = false;
+
+        function stopTimeUpdate() {
+            if (timeUpdateInterval) {
+                clearInterval(timeUpdateInterval);
+                timeUpdateInterval = null;
+                document.getElementById('start-time-btn').disabled = false;
+                document.getElementById('stop-time-btn').disabled = true;
+            }
         }
-        function stopChangeColors(){
-            clearInterval(timerNum);
-            document.getElementById('stop-btn').disabled = true;
-            document.getElementById('start-btn').disabled = false;
-        }
+
+        window.onload = function() {
+            updateTime(); 
+        };
     </script>
 </head>
-<body onload="showDates()">
+<body>
     <header>
         НГТУ, ФБ, Дата и время в разных локалях
     </header>
 
     <main>
         <div id="current-dates"></div>
-        <div>
-            <button onclick="startChangeColors()" id = "start-btn">Старт</button>
-            <button onclick="stopChangeColors()" disabled  id="stop-btn">Стоп</button>
+        <div class="buttons-container">
+            <div class="btn-group">
+                <button onclick="startColorChange()" id="start-btn" class="btn">Старт (цвет)</button>
+                <button onclick="stopColorChange()" id="stop-btn" class="btn" disabled>Стоп (цвет)</button>
+            </div>
+            <div class="btn-group">
+                <button onclick="startTimeUpdate()" id="start-time-btn" class="btn">Обновлять время</button>
+                <button onclick="stopTimeUpdate()" id="stop-time-btn" class="btn" disabled>Остановить обновление</button>
+            </div>
         </div>
     </main>
     
