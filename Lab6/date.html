@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крадинов Анатолий Иванович. Дата и время</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        .dates-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .date-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .date-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .locale-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .locale-code {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-left: 8px;
+            font-weight: 400;
+        }
+        
+        .date-time {
+            font-size: 1rem;
+            color: #495057;
+            line-height: 1.6;
+            padding-left: 10px;
+            border-left: 2px solid #adb5bd;
+        }
+        
+    </style>
+    <script>
+        function showDates() {
+            const now = new Date();
+            const locales = [
+                { code: 'ru-RU', name: 'Россия', flag: '🇷🇺' },
+                { code: 'en-US', name: 'США', flag: '🇺🇸' },
+                { code: 'de-DE', name: 'Германия', flag: '🇩🇪' },
+                { code: 'ja-JP', name: 'Япония', flag: '🇯🇵' },
+                { code: 'ar-SA', name: 'Саудовская Аравия', flag: '🇸🇦' },
+                { code: 'fr-FR', name: 'Франция', flag: '🇫🇷' }
+            ];
+            
+            let html = '<div class="dates-container">';
+            
+            locales.forEach(locale => {
+                const dateStr = now.toLocaleString(locale.code, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    weekday: 'long',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                html += `
+                    <div class="date-card">
+                        <div class="locale-name">
+                            ${locale.flag} ${locale.name}
+                            <span class="locale-code">${locale.code}</span>
+                        </div>
+                        <div class="date-time">${dateStr}</div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            document.getElementById('current-dates').innerHTML = html;
+        }
+    </script>
+</head>
+<body onload="showDates()">
+    <header>
+        НГТУ, ФБ, Дата и время в разных локалях
+    </header>
+
+    <main>
+        <div id="current-dates"></div>
+    </main>
+    
+    <footer>
+        &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
