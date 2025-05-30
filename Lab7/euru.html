@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крадинов Анатолий Иванович. Курс евро</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+                button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .euro-block {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-top: 25px;
+            width: 100%;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .euro-block h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .positive {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .negative {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .neutral {
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+    </style>
+<script>
+        function getEuroExchange() {
+            const url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let date = new Date(data.Date).toLocaleDateString();
+                    let current = data.Valute.EUR.Value;
+                    let previous = data.Valute.EUR.Previous;
+                    let difference = (current - previous).toFixed(4);
+
+                    let changeText = '';
+                    let className = 'neutral';
+                    if (current > previous) {
+                        changeText = 'Значение курса увеличилось';
+                        className = 'positive';
+                    } else if (current < previous) {
+                        changeText = 'Значение курса уменьшилось';
+                        className = 'negative';
+                    } else {
+                        changeText = 'Значение курса не изменилось';
+                    }
+
+                    document.getElementById('euro').innerHTML = `
+                        <div class="euro-block">
+                            <h3>Курс евро на ${date}</h3>
+                            <p><strong>Текущее значение курса:</strong> ${current.toFixed(2)} ₽</p>
+                            <p><strong>Предыдущее значение курса:</strong> ${previous.toFixed(2)} ₽</p>
+                            <p class="${className}"><strong>Изменение:</strong> ${difference} ₽ (${changeText})</p>
+                            <p><small>Источник: <a href="https://www.cbr-xml-daily.ru/" target="_blank">cbr-xml-daily.ru</a></small></p>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('euro').innerHTML = '<p style="color:red; font-weight:bold;">Ошибка при загрузке данных. Пожалуйста, попробуйте позже.</p>';
+                });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>НГТУ, ФБ, Курс евро</h1>
+    </header>
+
+    <main>
+        <button onclick="getEuroExchange()">Получить текущий курс евро</button>
+        <div id="euro"></div>
+    </main>
+    
+    <footer>
+        &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
