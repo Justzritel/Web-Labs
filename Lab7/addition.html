@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крадинов Анатолий Иванович. Дополнительное задание</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+                #current-values {
+            background-color: #e8f4fc;
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+            font-size: 18px;
+        }
+        
+        .chart-container {
+            width: 90%;
+            max-width: 1000px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+                @media (max-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+                #current-values p {
+            margin: 10px 0;
+        }
+        
+        #current-values strong {
+            color: #2c3e50;
+        }
+        
+    </style>
+    <script>
+             const url = "https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m,windspeed_10m&current_weather=true&timezone=Asia%2FBangkok";
+             fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const time = data.hourly.time.slice(0, 24);
+                    const temp = data.hourly.temperature_2m.slice(0, 24);
+                    const windspeed = data.hourly.windspeed_10m.slice(0, 24);
+                    const currentTemp = data.current_weather.temperature;
+                    const currentWindspeed = data.current_weather.windspeed;
+                    document.getElementById('current-values').innerHTML =
+                        `<p><strong>Текущая температура:</strong> ${currentTemp} °C</p>` +
+                        `<p><strong>Текущая скорость ветра:</strong> ${currentWindspeed} м/с</p>`;
+                
+                    const ctx = document.getElementById('weatherChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: time.map(t => t.slice(11)),
+                            datasets: [
+                                {
+                                    label: 'Температура (°C)',
+                                    data: temp,
+                                    backgroundColor: 'blue',
+                                    barThickness: 10,
+                                    maxBarThickness: 15
+                                },
+                                {
+                                    label: 'Скорость ветра (м/с)',
+                                    data: windspeed,
+                                    backgroundColor: 'wheat',
+                                    barThickness: 10,
+                                    maxBarThickness: 15
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Прогноз температуры и скорости ветра за сутки'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('current-values').innerText = 'Ошибка загрузки данных: ' + error;
+                });
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Дополнительное задание
+    </header>
+
+    <main>
+        <div id="current-values">Загрузка текущей погоды...</div>
+    <div class="chart-container">
+        <canvas id="weatherChart"></canvas>
+    </div>
+    </main>
+    
+    <footer>
+        &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
