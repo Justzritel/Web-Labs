@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <header>
@@ -16,11 +17,36 @@
     </header>
 
     <main>
+        <div id="app">
+            <h1 :title="messageRus">{{ message }}</h1>
+            <p>Счетчик: {{ counter }}</p>
+            <button @click="incCounter" v-if="counter <10">++</button>
+            <button @click="decCounter" v-if="counter >0">--</button>
 
+        </div>
     </main>
     
     <footer>
         &copy; Крадинов Анатолий Иванович, ФБИ-33, 2 курс, 2025
     </footer>
+        <script>
+        Vue.createApp({
+            data() {
+                return {
+                    message: 'Hello!',
+                    messageRus: 'Привет!',
+                    counter: 1,
+                }
+            },
+            methods: {
+                incCounter(){
+                    this.counter++;
+                },
+                decCounter(){
+                    this.counter--;
+                },
+            }
+        }).mount('#app')
+    </script>
 </body>
 </html>
